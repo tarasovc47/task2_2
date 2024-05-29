@@ -1,0 +1,9 @@
+---
+- name: Копируем шаблон в апач
+  template:
+    src: index.html.j2
+    dest: /var/www/html/index.html
+    owner: www-data
+    group: www-data
+  become: true
+  tags: apache

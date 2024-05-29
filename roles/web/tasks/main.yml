@@ -1,6 +1,2 @@
 ---
-- name: Устанавливаем софт для web-приложения
-  apt:
-    name:
-      apache2
-  become: true
+- include_tasks: web.yml
