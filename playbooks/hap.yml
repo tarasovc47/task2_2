@@ -1,0 +1,5 @@
+- hosts: hap
+  gather_facts: yes
+  roles:
+    - docker
+    - hap

@@ -1,0 +1,29 @@
+---
+
+- name: Подготавливаем ключ
+  become: true
+  apt_key:
+    url: https://download.docker.com/linux/debian/gpg
+    state: present
+  tags: docker
+
+- name: Добавляем docker
+  become: true
+  apt_repository:
+    repo: deb https://download.docker.com/linux/debian {{ ansible_distribution_release }} stable
+    state: present
+  tags: docker
+
+- name: Устанавливаем docker
+  become: true
+  apt:
+    pkg:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+      - docker-buildx-plugin
+      - docker-compose-plugin
+      - docker-compose
+    state: latest
+    update_cache: true
+  tags: docker
