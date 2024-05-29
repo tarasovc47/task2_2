@@ -1,0 +1,32 @@
+---
+- name: создаём директорию с проектом
+  file:
+    path: /project
+    owner: root
+    group: docker
+    mode: '0775'
+    state: directory
+  become: true
+  tags: docker
+
+- name: Копируем docker-compose.yml на {{ servername }}
+  copy:
+    src: docker-compose.yml
+    dest: /project
+  become: true
+  tags: docker
+
+- name: Копируем страничку в проект
+  template:
+    src: index.html.j2
+    dest: /project/index.html
+  become: true
+  tags: docker
+
+- name: Запускаем проект
+  docker_compose:
+    files: /project/docker-compose.yml
+    project_src: /project
+    recreate: smart
+  become: true
+  tags: docker
