@@ -1,0 +1,15 @@
+---
+- name: Устанавливаем python
+  hosts: debian-web2
+  gather_facts: no
+  pre_tasks:
+    - name: install python
+      raw: 'apt install -y python3 python-is-python3'
+  become: true
+  become_method: su
+  become_user: root
+
+- hosts: debian-web2
+  gather_facts: yes
+  roles:
+    - preconf

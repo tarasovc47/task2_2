@@ -1,0 +1,34 @@
+---
+- name: Обновляем софт
+  apt:
+    name: "*"
+    state: latest
+    update_cache: true
+  become: true
+  become_method: su
+
+- name: Устанавливаем дополнительное ПО
+  apt:
+    name:
+      - sudo
+      - vim
+      - htop
+      - mc
+      - gnupg
+  become: true
+  become_method: su
+
+- name: Создаём директорию sudoers.d
+  become: yes
+  become_method: su
+  file: path='/etc/sudoers.d' state=directory owner=root group=root mode=0755
+
+- name: Даём sudo пользователю
+  become: yes
+  become_method: su
+  copy: |
+    content="tarasov ALL=(ALL) NOPASSWD: ALL"
+    dest=/etc/sudoers.d/tarasov
+    owner=root
+    group=root
+    mode=0644
