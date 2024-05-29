@@ -1,0 +1,13 @@
+---
+- name: Копируем конфиг haproxy
+  copy:
+    src: haproxy.cfg
+    dest: /etc/haproxy/haproxy.cfg
+  become: true
+
+- name: Перезагружаем службу haproxy
+  service:
+    name: haproxy
+    enabled: true
+    state: restarted
+  become: true

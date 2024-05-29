@@ -1,0 +1,7 @@
+---
+- name: устанавливаем софт haproxy и keepalived
+  apt:
+    name:
+      - keepalived
+      - haproxy
+  become: true

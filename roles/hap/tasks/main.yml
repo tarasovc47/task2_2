@@ -1,7 +1,3 @@
 ---
-- name: устанавливаем софт haproxy и keepalived
-  apt:
-    name:
-      - keepalived
-      - haproxy
-  become: true
+- include_tasks: soft.yml
+- include_tasks: hap.yml
