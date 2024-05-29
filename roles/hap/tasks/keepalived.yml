@@ -1,0 +1,27 @@
+---
+- name: Вносим правки в sysctl.conf
+  sysctl:
+    name: net.ipv4.ip_forward
+    value: '1'
+    state: present
+  become: true
+
+- name: Вносим правки в sysctl.conf
+  sysctl:
+    name: net.ipv4.ip_nonlocal_bind
+    value: '1'
+    state: present
+  become: true
+
+- name: копируем конфиг keepalived
+  template:
+    src: keepalived.conf.j2
+    dest: /etc/keepalived/keepalived.conf
+  become: true
+
+- name: Перезапускаем службу keepalived
+  service:
+    name: keepalived
+    state: restarted
+    enabled: true
+  become: yes

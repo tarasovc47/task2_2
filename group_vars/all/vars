@@ -1,3 +1,4 @@
 ansible_ssh_user: tarasov
 ansible_ssh_password: tarasov
 ### это конечно же может быть зашифровано с помощью ansible-vault
+VirtualIP: 192.168.0.100

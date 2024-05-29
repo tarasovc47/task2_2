@@ -1,0 +1,29 @@
+global_defs {
+   router_id ha_BACKUP
+}
+
+vrrp_script check {
+    script "ping {{ keepalived_partner }}"
+    interval 1
+    weight 1
+}
+
+vrrp_instance VI_1 {
+    state {{ keepalived_role }}
+    interface enp0s3
+    virtual_router_id 230
+    priority 101
+    advert_int 1
+    authentication {
+        auth_type PASS
+        auth_pass SecPassWord
+    }
+
+    virtual_ipaddress {
+       {{ VirtualIP }}
+    }
+
+    track_script {
+        check
+    }
+}
